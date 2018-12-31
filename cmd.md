@@ -214,3 +214,67 @@ $ git commit --amend
 ## open edit and change message
 
 ```
+
+# git reset
+* change a file status from Staging to Unstaged
+```
+$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	modified:   cmd.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+$ git add .
+
+$ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+	modified:   cmd.md
+
+
+$ git reset HEAD cmd.md
+Unstaged changes after reset:
+M	cmd.md
+
+$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	modified:   cmd.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+# git checkout -- file 
+* change a file to origin(not modified)
+```
+$ git checkout -- cmd.md
+## return to original cmd.md file
+```
+
+# git remote
+```
+## show remote repository
+$ git remote
+$ git remote -v
+
+## add remote repository
+$ git remote add [repo_nickname] [repo_addr]
+
+## show remote repository
+$ git remote show [repo_nickname]
+
+## rename remote repository
+$ git remote rename [org_nick] [new_nick]
+
+## delete remote repository
+$ git remote rm [repo_nickname]
+```
