@@ -4,6 +4,13 @@
 * Modified : changed file
 * Staged : Add stage After Changed and Ready to commit
 
+# git config
+```
+## listing configs
+$ git config -l
+$ git config --add user.name juner417
+```
+
 # add - change a file status to the staged 
 git add <file> : Untracked -> Stage, Modified -> Stage
 
@@ -277,4 +284,34 @@ $ git remote rename [org_nick] [new_nick]
 
 ## delete remote repository
 $ git remote rm [repo_nickname]
+```
+
+# git tag
+* lightweight tag : 특정 commit에 대한 포인터
+* annotated tag : 테그를 만든 사람 및 정보가 함께 포함된 tag를 만듬
+```
+$ git tag -a v0.1 -m 'version tag'
+
+$ git tag
+v0.1
+
+$ git show v0.1
+tag v0.1
+Tagger: junho.son <junho.son@linecorp.com>
+Date:   Mon Dec 31 13:19:59 2018 +0900
+
+version tag
+
+commit 32e0d51512d6a6a72e7c8fa1c747f85734f9b8c1 (tag: v0.1-lw, tag: v0.1)
+
+## lightweight tag에는 -a -m 옵션을 사용하지 않는다. 
+```
+
+# git alias
+* like shell alias
+```
+git config --global alias.co checkout
+git config --global alias.br branch
+```
+
 ```
