@@ -189,4 +189,105 @@ $ git branch -d testing # delete branch on local repo
 ```
 
 ## rebase
+* 3way-merge가 아닌, 현재 브랜치에서 rebase를 위해 가져온 branch를 patch로 만들어서 적용한뒤 
+* 현재 브랜치의 변경내용을 차례대로 적용한다.
+* commit history 관리가 편함
+```
+## master branch 
+$ git commit -am "prepare rebase"
+[master c5ab272] prepare rebase
+ 1 file changed, 1 insertion(+)
 
+## git graph 확인
+$ git log --oneline --decorate --graph --all
+* c5ab272 (HEAD -> master) prepare rebase
+| * 4313efb (trackingbranch) test tracking branch
+|/
+* 1dd7f13 (origin/master) summary for ch3
+*   40c8a6b Merge branch 'iss53'
+|\
+| * 0122215 added a new footer [issue 53]
+* | 0f3265e fixed ther broken email address
+|/
+* df75ddb commit for current staged
+
+## 다른 브랜치 변경
+$ git checkout trackingbranch
+Switched to branch 'trackingbranch'
+
+$ vi index.html
+
+$ git commit -m "other branch for rebase"
+[trackingbranch da22cf6] other branch for rebase
+ 1 file changed, 1 insertion(+)
+
+$ git log --oneline --decorate --graph --all
+* da22cf6 (HEAD -> trackingbranch) other branch for rebase
+* 4313efb test tracking branch        # trackingbranch
+| * c5ab272 (master) prepare rebase   # master
+|/
+* 1dd7f13 (origin/master) summary for ch3
+*   40c8a6b Merge branch 'iss53'
+|\
+| * 0122215 added a new footer [issue 53]
+* | 0f3265e fixed ther broken email address
+|/
+* df75ddb commit for current staged
+
+## rebase
+$ git rebase master
+First, rewinding head to replay your work on top of it...
+Applying: test tracking branch
+Applying: other branch for rebase
+
+$ git log --oneline --decorate --graph --all
+* dadfa31 (HEAD -> trackingbranch) other branch for rebase
+* def4456 test tracking branch
+* c5ab272 (master) prepare rebase   # master branch가 앞에 rebase됨
+* 1dd7f13 (origin/master) summary for ch3
+*   40c8a6b Merge branch 'iss53'
+|\
+| * 0122215 added a new footer [issue 53]
+* | 0f3265e fixed ther broken email address
+|/
+* df75ddb commit for current staged
+
+## master로 이동
+$ git checkout master
+Switched to branch 'master'
+
+$ git status
+On branch master
+nothing to commit, working tree clean
+
+$ git log --oneline --decorate --graph --all
+* dadfa31 (trackingbranch) other branch for rebase
+* def4456 test tracking branch
+* c5ab272 (HEAD -> master) prepare rebase   # HEAD가 master로 이동
+* 1dd7f13 (origin/master) summary for ch3
+*   40c8a6b Merge branch 'iss53'
+|\
+| * 0122215 added a new footer [issue 53]
+* | 0f3265e fixed ther broken email address
+|/
+* df75ddb commit for current staged
+
+## rebase한 branch merge
+$ git merge trackingbranch
+Updating c5ab272..dadfa31
+Fast-forward
+ index.html | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+$ git log --oneline --decorate --graph --all
+* dadfa31 (HEAD -> master, trackingbranch) other branch for rebase  # HEAD 이동
+* def4456 test tracking branch
+* c5ab272 prepare rebase
+* 1dd7f13 (origin/master) summary for ch3
+*   40c8a6b Merge branch 'iss53'
+|\
+| * 0122215 added a new footer [issue 53]
+* | 0f3265e fixed ther broken email address
+|/
+* df75ddb commit for current staged
+```
