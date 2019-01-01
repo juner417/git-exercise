@@ -188,4 +188,5 @@ $ git branch -d testing # delete branch on local repo
 
 ```
 
+## rebase
 
