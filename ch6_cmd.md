@@ -62,3 +62,13 @@ $ git fetch
 $ git checkout pr/1
 ```
 
+## github scripting
+### services
+* 다양한 서비스와 연동가능하도록 github에서 제공하는 서비스 모듈
+### hook
+* github서비스에 없거나 외부 서비스와 연동할때 사용
+* 지정한 url로 http 페이로드를 보내줌
+* 저장하고 해당 내용을 클릭하면 웹훅 히스토리 검색 가능
+* [참고](https://developer.github.com/webhooks/)
+
+
