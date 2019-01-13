@@ -87,6 +87,140 @@ $ git log refA refB --not refC
 ### '...' triple dot(서로 다른 commit '만' 보여줌)
 * A...B : A와 B refs에서 서로 다른 commit만 보여
 ```
+$ git log A...B # A,B에 서로 다른 commit만 보여줌
+
+### --left-right 옵션을 이용하여 확인
+$ git log HEAD...trackingbranch --oneline --left-right
+> 7068794 (trackingbranch) commit for tracking only
+< adda9b4 (HEAD -> master) summary ch7
+< 8bf7d5a start ch7 -- changed
+< 5b8e4e4 ch6 start
+< 46fe785 test
+< 39d23ee (tag: v0.5-a) summary for ch5
+< 9a94b5b (tag: v0.3) done ch3
+```
+
+## 대화형 명령
+* add -i(--interactive) 옵션을 사용하여 상태 변경 가능
+
+### update(add staging area)
+```
+## interactive 사용
+$ git add -i
+           staged     unstaged path
+  1:    unchanged       +11/-1 ch7_cmd.md
+
+*** Commands ***
+  1: status	  2: update	  3: revert	  4: add untracked
+  5: patch	  6: diff	  7: quit	  8: help
+What now> 2   # update
+           staged     unstaged path
+  1:    unchanged       +11/-1 ch7_cmd.md
+Update>> 1    # choose a file
+           staged     unstaged path
+* 1:    unchanged       +11/-1 ch7_cmd.md
+Update>>
+updated 1 path  # update done(unstaged -> stage)
+
+*** Commands ***
+  1: status	  2: update	  3: revert	  4: add untracked
+  5: patch	  6: diff	  7: quit	  8: help
 
 ```
 
+### revert(delete a file on staging area)
+```
+What now> 3
+           staged     unstaged path
+  1:       +11/-1      nothing ch7_cmd.md
+Revert>> 1
+           staged     unstaged path
+* 1:       +11/-1      nothing ch7_cmd.md
+Revert>>
+reverted 1 path
+What now> 1
+           staged     unstaged path
+  1:    unchanged       +11/-1 ch7_cmd.md
+
+*** Commands ***
+  1: status	  2: update	  3: revert	  4: add untracked
+  5: patch	  6: diff	  7: quit	  8: help
+
+```
+
+### diff
+* interactive 모드는 'git diff --cached'와 동일
+```
+## add file (to the staging area)
+What now> 2
+           staged     unstaged path
+  1:    unchanged       +63/-0 ch7_cmd.md
+Update>> 1
+           staged     unstaged path
+* 1:    unchanged       +63/-0 ch7_cmd.md
+Update>>
+updated 1 path
+
+## git diff --cached...
+What now> 6
+           staged     unstaged path
+  1:       +63/-0      nothing ch7_cmd.md
+Review diff>> 1
+diff --git a/ch7_cmd.md b/ch7_cmd.md
+index 19bc888..ff72c26 100644
+--- a/ch7_cmd.md
++++ b/ch7_cmd.md
+@@ -87,6 +87,69 @@ $ git log refA refB --not refC
+ ### '...' triple dot(서로 다른 commit '만' 보여줌)
+ * A...B : A와 B refs에서 서로 다른 commit만 보여
+ ```
++$ git log A...B # A,B에 서로 다른 commit만 보여줌
+...
+
+```
+
+### add --patch
+* 일부분만 add(to the staging area)
+```
+What now> 5
+           staged     unstaged path
+  1:    unchanged       +11/-1 ch7_cmd.md
+Patch update>> 1
+           staged     unstaged path
+* 1:    unchanged       +11/-1 ch7_cmd.md
+diff --git a/ch7_cmd.md b/ch7_cmd.md
+index 19bc888..cb06e14 100644
+--- a/ch7_cmd.md
++++ b/ch7_cmd.md
+@@ -87,6 +87,16 @@ $ git log refA refB --not refC
+ ### '...' triple dot(서로 다른 commit '만' 보여줌)
+ * A...B : A와 B refs에서 서로 다른 commit만 보여
+ ```
+-
++$ git log A...B # A,B에 서로 다른 commit만 보여줌
++
++### --left-right 옵션을 이용하여 확인
++$ git log HEAD...trackingbranch --oneline --left-right
++> 7068794 (trackingbranch) commit for tracking only
++< adda9b4 (HEAD -> master) summary ch7
++< 8bf7d5a start ch7 -- changed
++< 5b8e4e4 ch6 start
++< 46fe785 test
++< 39d23ee (tag: v0.5-a) summary for ch5
++< 9a94b5b (tag: v0.3) done ch3
+ ```
+
+Stage this hunk [y,n,q,a,d,e,?]? ?
+y - stage this hunk
+n - do not stage this hunk
+q - quit; do not stage this hunk or any of the remaining ones
+a - stage this hunk and all later hunks in the file
+d - do not stage this hunk or any of the later hunks in the file
+e - manually edit the current hunk
+? - print help
+
+## y선택시 해당 구간 add
+## 위 내용과 동일한 cmd, 실행시 동일한 interactive out 나옴
+$ git add -p
+$ git add --patch
+```
