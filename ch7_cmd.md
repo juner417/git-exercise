@@ -224,3 +224,6 @@ e - manually edit the current hunk
 $ git add -p
 $ git add --patch
 ```
+
+## References
+* Pro git chapter7

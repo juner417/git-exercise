@@ -291,3 +291,6 @@ $ git log --oneline --decorate --graph --all
 |/
 * df75ddb commit for current staged
 ```
+
+## References
+* Pro git chapter3

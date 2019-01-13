@@ -315,3 +315,6 @@ git config --global alias.br branch
 ```
 
 ```
+
+## References
+* Pro git chapter2

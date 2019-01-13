@@ -67,3 +67,5 @@ v0.1-lw-17-g46fe785
 $ git archive master --prefix='project' | gzip > `git describe master`.tar.gz
 ```
 
+## References
+* Pro git chapter5
