@@ -48,3 +48,45 @@ $ git show HEAD^1
 $ git show HEAD~2
 $ git show HEAD^^
 ```
+
+## 범위로 commit 가르키기
+### '..' double dot
+* A..B : A에는 없지만 B에만 있는 commit들
+```
+$ git log A..b
+
+## 현재 branch(HEAD)에는 있고 origin/master에 없는 commit
+## push할 경우 여기에 나오는 commit들이 push된다. 
+$ git log origin/master..HEAD
+
+## 한쪽 refs를 생략하면 현재 branch에 HEAD라고 가정함
+## 아래는 위와 동일한 경우
+$ git log origin/master..
+
+## upstream을 fetch하고 현재 branch와 비교할 경우...
+$ git fetch upstream
+...
+$ git log FETCH_HEAD..(HEAD생략가능)
+
+```
+
+### 3개 이상의 refs 비교
+* '..'의 경우 2개 refs만 비교가능
+* 3개 이상의 refs를 비교하려면 '...', '^'. '--not' 을 사용하면 된다. 
+```
+## .., ^, --not 비교
+$ git log refA..refB
+$ git log ^refA refB
+$ git log refB --not refA
+
+## 3개 이상 비교
+$ git log refA refB ^refC #refA, refB에는 있는데 refC에만 없는 것
+$ git log refA refB --not refC 
+```
+
+### '...' triple dot(서로 다른 commit '만' 보여줌)
+* A...B : A와 B refs에서 서로 다른 commit만 보여
+```
+
+```
+
