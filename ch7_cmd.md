@@ -313,6 +313,14 @@ $ git commit --amend
 ```
 $ git rebase -i HEAD~3
 
+## 현재 HEAD 2~3 이전의(서버에 push하지 않은) commit message를 바꾸려고 할때 
+$ git rebase -i HEAD~3
+# 대화형 화면이 나오면 pick을 edit으로 수정하고 닫음
+$ git commit --amend
+$ git rebase --continue
+# git rebase --edit-todo 를 실행하면 그 다음 수정할 commit으로 이동
+## 대화형 화면에서 commit 순서를 바꿀수도 있음 
+
 ```
 ## References
 * Pro git chapter7
