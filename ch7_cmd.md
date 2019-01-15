@@ -225,5 +225,94 @@ $ git add -p
 $ git add --patch
 ```
 
+### stash and cleansing
+```
+$ git status
+On branch master
+Your branch is ahead of 'lineghe/master' by 6 commits.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	modified:   ch7_cmd.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+## stash
+$ git stash # OR
+$ git stash save
+Saved working directory and index state WIP on master: f218618 typo
+
+## stash list보기
+$ git stash list
+stash@{0}: WIP on master: f218618 typo
+
+## stash 한 내용 다시 적용
+$ git stash apply
+On branch master
+Your branch is ahead of 'lineghe/master' by 6 commits.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	modified:   ch7_cmd.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+## stash list는 남아있음 drop으로 지워야 함
+$ git stash list
+stash@{0}: WIP on master: f218618 typo
+
+$ git stash drop
+Dropped refs/stash@{0} (c09420af4145b12f23c2ba7cc4e9b9c1886b05ba)
+
+## git stash pop(apply + drop)
+$ git stash pop
+
+## staging area에 있는 내용은 stash하지 않음 
+$ git stash --keep-index
+
+## git clean (working dir clean)
+$ git clean #stage에 들어가지 않은 내용들 삭제
+$ git clean -n #dry-run
+$ git clean -n -d -x #.gitignore에 명시한 내용까지 삭제 
+
+
+```
+
+### search
+#### grep
+```
+$ git grep -n test
+...
+$ git grep --count test # 지정한 문자 개수 count
+$ git grep -p r.discover # 지정한 문자가 포함된 함수 찾기 
+```
+
+#### search a log
+```
+## describe 단어가 처음 들어간 commit 확인 
+$ git log -Sdescribe --oneline
+5b8e4e4 ch6 start
+
+$ git show 5b8e4e4
+...
+```
+
+### history 단장하기
+#### commit 수정
+```
+$ git commit --amend
+```
+
+#### commit message 여러개 수정
+```
+$ git rebase -i HEAD~3
+
+```
 ## References
 * Pro git chapter7
