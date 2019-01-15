@@ -320,7 +320,7 @@ $ git commit --amend
 $ git rebase --continue
 # git rebase --edit-todo 를 실행하면 그 다음 수정할 commit으로 이동
 ## 대화형 화면에서 commit 순서를 바꿀수도 있음 
-
+## edit, pick, squash를 써서 commit을 나눌 수도, 합칠수도 있다. 
 ```
 ## References
 * Pro git chapter7
